@@ -1,6 +1,7 @@
 import eyed3
 import os
 import sys
+import re
 
 main_artist = None
 main_album = None
@@ -13,7 +14,9 @@ try :
             audio = eyed3.load(path)
             artist = audio.tag.artist
             album = audio.tag.album
-            title = audio.tag.title
+
+            title = re.sub(r"[:*?<>|]", "", audio.tag.title)
+            title = re.sub(r"[/\\]", "_", title)
 
             os.rename(path, os.path.join(sys.argv[1], f"{artist} - {title} - {album}.mp3"))
 
