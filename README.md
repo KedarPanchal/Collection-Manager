@@ -1,5 +1,5 @@
 # Collection Manager
-A short Python script I wrote to help manage my growing `.mp3` music collection by renaming files according to a consistent format. As my collection grows, I may choose to add other python scripts to this repository that help manage the collection.
+A short Python script I wrote to help manage my growing `.mp3` music collection by renaming files according to a consistent format. As my collection grows, I may choose to add other Python scripts to this repository that help manage the collection.
 
 ### Usage
 Install the required packages by running the following code:
