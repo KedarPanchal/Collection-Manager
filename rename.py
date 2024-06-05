@@ -1,4 +1,4 @@
-import eyed3
+from tinytag import TinyTag
 import os
 import sys
 import re
@@ -9,13 +9,13 @@ rename_directory = True
 
 try :
     for file in os.listdir(sys.argv[1]):
-        if file.endswith(".mp3"):
+        if file.endswith(".mp3") or file.endswith(".flac"):
             path = os.path.join(sys.argv[1], file)
-            audio = eyed3.load(path)
-            artist = audio.tag.artist
-            album = audio.tag.album
+            tag = TinyTag(path)
+            artist = tag.artist
+            album = tag.album
 
-            title = re.sub(r"[:*?<>|]", "", audio.tag.title)
+            title = re.sub(r"[:*?<>|]", "", tag.title)
             title = re.sub(r"[/\\]", "_", title)
 
             os.rename(path, os.path.join(sys.argv[1], f"{artist} - {title} - {album}.mp3"))
