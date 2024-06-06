@@ -9,16 +9,16 @@ rename_directory = True
 
 try :
     for file in os.listdir(sys.argv[1]):
-        if file.endswith(".mp3") or file.endswith(".flac"):
-            path = os.path.join(sys.argv[1], file)
-            tag = TinyTag(path)
+        path = os.path.join(sys.argv[1], file)
+        if TinyTag.is_supported(path):
+            tag = TinyTag.get(path)
             artist = tag.artist
             album = tag.album
-
+            extension = re.search(r"(\.\w{3,4}$)", file).group(1)
             title = re.sub(r"[:*?<>|]", "", tag.title)
             title = re.sub(r"[/\\]", "_", title)
 
-            os.rename(path, os.path.join(sys.argv[1], f"{artist} - {title} - {album}.mp3"))
+            os.rename(path, os.path.join(sys.argv[1], f"{artist} - {title} - {album}{extension}"))
 
             if main_album is None:
                 main_artist = artist
